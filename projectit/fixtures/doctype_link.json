@@ -1,0 +1,39 @@
+[
+ {
+  "custom": 1,
+  "docstatus": 0,
+  "doctype": "DocType Link",
+  "group": null,
+  "hidden": 0,
+  "is_child_table": 0,
+  "link_doctype": "Employee Checkin",
+  "link_fieldname": "custom_timesheet",
+  "modified": "2025-03-17 15:47:37.374701",
+  "name": "v8sdmt8hqv",
+  "parent": "Timesheet",
+  "parent_doctype": null,
+  "parentfield": "links",
+  "parenttype": "Customize Form",
+  "table_fieldname": null
+ },
+ {
+  "doctype": "DocType Link",
+  "parent": "User",
+  "name": "taskinusrnm",
+  "parenttype": "DocType",
+  "parentfield": "links",
+  "link_doctype": "Task",
+  "link_fieldname": "custom_assigned_user",
+  "group": "References"
+ },
+ {
+  "doctype": "DocType Link",
+  "parent": "User",
+  "name": "projectinusernm",
+  "parenttype": "DocType",
+  "parentfield": "links",
+  "link_doctype": "Project",
+  "link_fieldname": "custom_project_manager",
+  "group": "References"
+ }
+]

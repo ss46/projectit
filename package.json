@@ -1,0 +1,15 @@
+{
+  "name": "projectit",
+  "version": "1.0.0",
+  "description": "Project Cost Tracking Tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "cd mobile && yarn install",
+    "dev": "cd mobile && yarn dev",
+    "build": "cd mobile && yarn build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

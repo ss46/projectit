@@ -1,0 +1,66 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-03-15 18:36:53.354770",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "start_time",
+  "regular_time_activity_type",
+  "column_break_redh",
+  "end_time",
+  "over_time_activity_type"
+ ],
+ "fields": [
+  {
+   "fieldname": "start_time",
+   "fieldtype": "Time",
+   "label": "Regular Hours Start Time"
+  },
+  {
+   "fieldname": "regular_time_activity_type",
+   "fieldtype": "Link",
+   "label": "Regular Time Activity Type",
+   "options": "Activity Type"
+  },
+  {
+   "fieldname": "column_break_redh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "end_time",
+   "fieldtype": "Time",
+   "label": "Regular Hours End Time"
+  },
+  {
+   "fieldname": "over_time_activity_type",
+   "fieldtype": "Link",
+   "label": "Over Time Activity Type",
+   "options": "Activity Type"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2025-03-22 12:57:36.432569",
+ "modified_by": "Administrator",
+ "module": "Projectit",
+ "name": "Work Time Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
