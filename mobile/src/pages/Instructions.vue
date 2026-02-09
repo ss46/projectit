@@ -38,15 +38,26 @@ const props = defineProps({
         <div class="bg-[#F5F8FF] rounded-b-md border-[#B9C8EA] border-b-2 border-x-2 p-4">
 
             <!-- Title -->
-            <div class="font-[600] text-[#2F3E63] mb-2">
+            <div class="font-[600] text-[#2F3E63] mb-2 break-words whitespace-normal">
                 {{ task.subject }}
             </div>
 
             <!-- Meta -->
             <div class="text-sm text-[#6B7AA8] mb-3 flex flex-wrap gap-4">
                 <span>Status: {{ task.status }}</span>
+                <span>Project: {{ task.project_name }}</span>
                 <span v-if="task.priority">Priority: {{ task.priority }}</span>
-                <span v-if="task.exp_end_date">Due: {{ task.exp_end_date }}</span>
+            </div>
+            <hr class="mb-3">
+            <div class="text-sm text-[#6B7AA8] mb-3 flex flex-col gap-4">
+                <span v-if="task.exp_start_date">
+                    <span>Start Date: </span>
+                    <span>{{ task.exp_start_date }}</span>
+                </span>
+                <span v-if="task.exp_end_date">
+                    <span>End Date: </span>
+                    <span>{{ task.exp_end_date }}</span>
+                </span>
             </div>
 
             <!-- Description -->

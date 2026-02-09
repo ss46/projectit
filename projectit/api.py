@@ -76,12 +76,14 @@ def get_employee_tasks(employee_id):
             t.name,
             t.subject,
             t.project,
+            p.project_name,
             t.status,
             t.priority,
             t.exp_start_date,
             t.exp_end_date,
             t.description
         FROM `tabTask` t
+        INNER JOIN `tabProject` p ON p.name = t.project
         WHERE
             t.project IN %(projects)s
             AND t.custom_assigned_user = %(user)s
@@ -178,8 +180,10 @@ def get_project_allocation(user_company):
             SELECT
                 p.name,
                 p.project_name,
-                p.custom_project_manager
+                p.custom_project_manager,
+                u.full_name
             FROM `tabProject` p
+            INNER JOIN `tabUser` u ON u.name = p.custom_project_manager
             WHERE
                 p.company IN %(user_company)s
                 AND EXISTS (
@@ -195,8 +199,6 @@ def get_project_allocation(user_company):
         return project_list
     else:
         return []
-
-
 
 @frappe.whitelist()
 def upload_base64_file(content, filename, dt=None, dn=None, fieldname=None):

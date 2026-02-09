@@ -14,10 +14,7 @@
                 </div>
             </div>
             <div v-else class=" pl-6 pr-6 pt-7 pb-4">
-                <div v-if="taskResource.loading" class="flex h-80 items-center justify-center">
-                    <Spinner class=" h-12"></Spinner>
-                </div>
-                <div v-else class="bg-[#B9C8EA] pt-3 pb-3 pl-4 pr-3 rounded-t-md flex gap-3">
+                <div class="bg-[#B9C8EA] pt-3 pb-3 pl-4 pr-3 rounded-t-md flex gap-3">
                     <ProjectOutline class=" h-6 w-6"></ProjectOutline>
                     <p class="text-[#4A6BB6] font-[600] font-[Inter]"> {{ taskName }}</p> 
                 </div>
@@ -248,28 +245,25 @@ function handleTaskSelection(task) {
     taskInstruction.value = task
 }
 
-const taskByIdResource = createResource({
+const doctypeByIdResource = createResource({
     url: 'frappe.client.get',
     method: 'GET',
 })
 
 async function restoreTask(taskId) {
-    const task = await taskByIdResource.fetch({
+    const task = await doctypeByIdResource.fetch({
         doctype: 'Task',
         name: taskId
+    })
+    const project = await doctypeByIdResource.fetch({
+        doctype: 'Project',
+        name: task.project
     })
 
     taskName.value = task.subject
     taskStatus.value = task.status
     taskInstruction.value = task
-}
-
-function displayInstructions() {
-    let promise = get_instructions(dayjs().format("YYYY-MM-DD"), projectName.value, employee)
-    promise
-        .then((d) => {
-            instructions.value = d
-        })
+    taskInstruction.value.push(project.project_name)
 }
 
 const updateTaskStatus = createResource({

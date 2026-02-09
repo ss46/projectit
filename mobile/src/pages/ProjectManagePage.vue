@@ -38,8 +38,8 @@
     >
       <div class="flex justify-between">
         <p class="text-sm text-gray-500">Руководитель проекта:</p>
-        <p v-if="project.custom_project_manager"
-           class="text-sm text-gray-500">{{ project.custom_project_manager }}</p>
+        <p v-if="project.full_name"
+           class="text-sm text-gray-500">{{ project.full_name }}</p>
         <p v-else class="text-sm text-gray-500">Без руководителя</p>
       </div>
       <div class="py-1">
@@ -85,7 +85,6 @@ const projectAllocationResource = createResource({
 })
 
 const projects = computed(() => projectAllocationResource.data || [])
-console.log(projects)
 
 const taskListResource = createResource({
   url: 'frappe.client.get_list',
@@ -100,9 +99,13 @@ async function toggleProject(index) {
   const tasks = await taskListResource.fetch({
     doctype: 'Task',
     filters: JSON.stringify({ project: project.name }),
-    fields: JSON.stringify(['*']),
+    fields: JSON.stringify(['*'])
   })
-  project.tasks = tasks
+  console.log(tasks)
+  project.tasks = tasks.map(t => ({
+    ...t,
+    project_name: project.project_name
+  }))
   project.loaded = true
 }
 

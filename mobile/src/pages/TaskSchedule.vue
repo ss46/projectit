@@ -20,7 +20,8 @@
     }"
   >
     <template #body-title>
-      <p class="font-mono font-bold text-xl">
+      <p class="font-mono font-bold text-xl break-words whitespace-normal max-w-full"
+         style="overflow-wrap: anywhere;">
         {{ selectedTask?.subject }}
       </p>
     </template>
@@ -31,10 +32,16 @@
           <b>Status:</b> {{ selectedTask?.status }}
         </div>
         <div v-if="selectedTask?.priority">
+          <b>Project:</b> {{ selectedTask.project_name }}
+        </div>
+        <div v-if="selectedTask?.priority">
           <b>Priority:</b> {{ selectedTask.priority }}
         </div>
         <div v-if="selectedTask?.exp_end_date">
-          <b>Due:</b> {{ selectedTask.exp_end_date }}
+          <b>Start date:</b> {{ selectedTask.exp_start_date }}
+        </div>
+        <div v-if="selectedTask?.exp_end_date">
+          <b>End date:</b> {{ selectedTask.exp_end_date }}
         </div>
 
         <div class="bg-white p-3 rounded border">
@@ -66,24 +73,6 @@ const tasksHeader = ref([
 
 const showTaskDetails = ref(false)
 const selectedTask = ref(null)
-const projectSubjects = ref({})
-
-const projectResource = createResource({
-  url: 'frappe.client.get_list',
-  makeParams() {
-    return {
-      doctype: 'Project',
-      fields: ['name', 'project_name'],
-      limit_page_length: 1000,
-    }
-  },
-  onSuccess(data) {
-    projectSubjects.value = Object.fromEntries(
-      data.map(p => [p.name, p.project_name])
-    )
-  },
-  auto: true,
-})
 
 const tasksResource = createResource({
   url: 'projectit.api.get_employee_tasks',
@@ -95,8 +84,9 @@ const tasksResource = createResource({
   auto: true,
   onSuccess(data) {
     tasks.value = data.map(task => ({
+      id: task.name,
       subject: task.subject,
-      project: projectSubjects.value[task.project] ??
+      project: task.project_name ??
                task.project ??
                '',
       status: task.status
@@ -109,7 +99,10 @@ const tasksResource = createResource({
 })
 
 function taskSelected(row) {
-  selectedTask.value = row
+  selectedTask.value = tasksResource.data.find(
+    task => task.name === row.id
+  )
+  console.log(row)
   showTaskDetails.value = true
 }
 </script>

@@ -20,11 +20,11 @@
           </p>
 
           <p class="text-sm opacity-80 break-words whitespace-normal">
-            {{ task.project }} • {{ task.status }}
+             Project • {{ task.project_name }}
           </p>
 
           <p v-if="task.priority" class="text-xs opacity-70 break-words whitespace-normal">
-            Priority: {{ task.priority }}
+            Priority • {{ task.priority }}
           </p>
         </div>
       </li>

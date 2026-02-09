@@ -1,5 +1,5 @@
 <template>
-    <div v-if="props.show" class="modal-overlay">
+    <div v-if="props.show" class="modal-overlay !z-[9999]">
         <div class="w-3/4 bg-[#D6E1F9]">
             <div>
                 <button @click="emit('close', false);">

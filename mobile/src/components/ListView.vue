@@ -36,7 +36,7 @@
         :class="rowClasses(line,index)"
         >
             <td
-            v-for="(v, k) in line"
+            v-for="(v, k) in visibleEntries(line)"
             :key="k"
             tabindex="0"
             @focus="selectRow(line)"
@@ -63,6 +63,10 @@ import { Button } from 'frappe-ui'
 const props = defineProps({
   header: Array,
   listData: Array,
+  hiddenFields: {
+    type: Array,
+    default: () => ['id'],
+  },
   showActionButton: {
     type: Boolean,
     default: false
@@ -76,6 +80,18 @@ const props = defineProps({
 const emit = defineEmits(['action'])
 
 const selectedRow = ref(null)
+
+function visibleEntries(line) {
+  const hidden = Array.isArray(props.hiddenFields)
+    ? props.hiddenFields
+    : []
+
+  return Object.fromEntries(
+    Object.entries(line).filter(
+      ([key]) => !hidden.includes(key)
+    )
+  )
+}
 
 function selectRow(row) {
   selectedRow.value = row
